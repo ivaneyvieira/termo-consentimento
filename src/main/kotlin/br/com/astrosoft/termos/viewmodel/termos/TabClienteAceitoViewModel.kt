@@ -3,13 +3,13 @@ package br.com.astrosoft.termos.viewmodel.termos
 import br.com.astrosoft.framework.viewmodel.ITabView
 import br.com.astrosoft.termos.model.beans.Cliente
 
-class TabClienteViewModel(val viewModel: TermoViewModel) {
+class TabClienteAceitoViewModel(val viewModel: TermoViewModel) {
   private val subView
-    get() = viewModel.view.tabClienteViewModel
+    get() = viewModel.view.tabClienteAceitoViewModel
 
   fun updateGrid() {
     val filtro = subView.filtro()
-    val lista = Cliente.findClientes(filtro, false)
+    val lista = Cliente.findClientes(filtro, true)
     subView.updateClientes(lista)
   }
 
@@ -20,16 +20,14 @@ class TabClienteViewModel(val viewModel: TermoViewModel) {
     cliente.flagPromocoesOferta = false
     cliente.flagUsoAsistencia = false
     cliente.save()
-    updateGrid()
   }
 
   fun aceito(cliente: Cliente) {
     cliente.save()
-    updateGrid()
   }
 }
 
-interface ITabClienteViewModel : ITabView {
+interface ITabClienteAceitoViewModel : ITabView {
   fun filtro(): String
   fun updateClientes(listaCliente: List<Cliente>)
 }

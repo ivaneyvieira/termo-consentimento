@@ -42,3 +42,7 @@
 [part~="ck-content"].dark {
     color: black;
 }
+
+p.termo {
+    font-size: 21px;
+}

@@ -10,8 +10,8 @@ import com.vaadin.flow.component.dependency.CssImport
 import com.vaadin.flow.router.PageTitle
 import com.vaadin.flow.router.Route
 
-@Route(layout = TermoLayout::class)
-@PageTitle("Devolução")
+@Route(layout = TermoLayout::class, value = "")
+@PageTitle("Termo de Consentimento")
 @CssImport("./styles/gridTotal.css", themeFor = "vaadin-grid")
 class TermoView : ViewLayout<TermoViewModel>(), ITermoView {
   override val viewModel = TermoViewModel(this)
@@ -21,6 +21,7 @@ class TermoView : ViewLayout<TermoViewModel>(), ITermoView {
   }
 
   override val tabClienteViewModel = TabClientes(viewModel.tabClieteViewModel)
+  override val tabClienteAceitoViewModel = TabClientesAceito(viewModel.tabClieteAceitoViewModel)
 
   init {
     addTabSheat(viewModel)

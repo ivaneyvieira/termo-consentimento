@@ -8,7 +8,9 @@ import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteCodigo
 import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteCpf
 import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteEmail
 import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteNome
+import br.com.astrosoft.termos.viewmodel.termos.ITabClienteAceitoViewModel
 import br.com.astrosoft.termos.viewmodel.termos.ITabClienteViewModel
+import br.com.astrosoft.termos.viewmodel.termos.TabClienteAceitoViewModel
 import br.com.astrosoft.termos.viewmodel.termos.TabClienteViewModel
 import com.github.mvysny.karibudsl.v10.textField
 import com.vaadin.flow.component.grid.Grid
@@ -18,8 +20,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout
 import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.data.value.ValueChangeMode
 
-class TabClientes(val viewModel: TabClienteViewModel) :
-        TabPanelGrid<Cliente>(Cliente::class), ITabClienteViewModel {
+class TabClientesAceito(val viewModel: TabClienteAceitoViewModel) :
+        TabPanelGrid<Cliente>(Cliente::class), ITabClienteAceitoViewModel {
   private lateinit var edtFiltro: TextField
   override fun HorizontalLayout.toolBarConfig() {
     edtFiltro = textField("Filtro"){
@@ -35,7 +37,7 @@ class TabClientes(val viewModel: TabClienteViewModel) :
   override fun Grid<Cliente>.gridPanel() {
     setSelectionMode(SINGLE)
     addColumnButton(VaadinIcon.DIPLOMA, "Termo de consentimento", "Termo") { fornecedor ->
-      DlgTermoConsetimento(viewModel).showDialogNota(fornecedor)
+      DlgTermoConsetimentoAceito(viewModel).showDialogNota(fornecedor)
     }
 
     clienteCodigo()
@@ -57,7 +59,7 @@ class TabClientes(val viewModel: TabClienteViewModel) :
   }
 
   override val label: String
-    get() = "Clientes"
+    get() = "Termos aceitos"
 
   override fun updateComponent() {
     viewModel.updateGrid()

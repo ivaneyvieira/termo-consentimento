@@ -13,6 +13,7 @@ import com.vaadin.flow.theme.lumo.Lumo
 @Push
 @JsModule("./styles/shared-styles.js")
 class TermoLayout : MainLayout() {
+  var  result : Result<Int>? = null
   override fun Tabs.menuConfig() {
     menuRoute(FORM, "Termos", TermoView::class)
   }

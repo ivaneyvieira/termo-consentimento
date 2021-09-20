@@ -5,6 +5,7 @@ import com.github.mvysny.karibudsl.v10.VaadinDsl
 import com.github.mvysny.karibudsl.v10.init
 import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.HasComponents
+import com.vaadin.flow.component.HasStyle
 import org.vaadin.gatanaso.MultiselectComboBox
 import org.vaadin.stefan.LazyDownloadButton
 import java.io.ByteArrayInputStream
@@ -55,3 +56,9 @@ fun (@VaadinDsl HasComponents).lazyDownloadButtonXlsx(
   byteArray: () -> ByteArray,
                                                      ) =
         lazyDownloadButton(text, prefixo, ".xlsx", FontAwesome.Solid.FILE_EXCEL.create(), byteArray)
+
+
+@VaadinDsl
+fun (@VaadinDsl HasStyle).borderDebug() {
+  style.set("border", "6px dotted DarkOrange")
+}

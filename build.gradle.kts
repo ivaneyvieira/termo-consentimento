@@ -71,7 +71,7 @@ dependencies {
   implementation("org.cups4j:cups4j:0.7.8")
   // https://mvnrepository.com/artifact/org.jsoup/jsoup
   implementation("org.jsoup:jsoup:1.13.1")
-  
+
   // logging
   implementation("org.vaadin.tatu:twincolselect:1.2.0")
   implementation("org.vaadin.gatanaso:multiselect-combo-box-flow:1.1.0")
@@ -89,10 +89,11 @@ dependencies {
   implementation("com.github.wmixvideo:nfe:3.0.58")
 
   //implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.3")
+  implementation("com.wontlost:zxing-vaadin:1.0.2-8")
 
 
   implementation(kotlin("stdlib"))
-  
+
   implementation(kotlin("reflect"))
   // https://mvnrepository.com/artifact/net.sourceforge.dynamicreports/dynamicreports-core
   implementation("net.sourceforge.dynamicreports:dynamicreports-core:6.12.1") {
@@ -102,12 +103,13 @@ dependencies {
   implementation("net.sf.jasperreports:jasperreports:6.17.0")
   implementation("net.sf.jasperreports:jasperreports-fonts:6.17.0")
   implementation("de.f0rce.signaturepad:signature-widget:2.0.0")
-  
+
   implementation("com.lowagie:itext:2.1.7")
   implementation("javax.xml.bind:jaxb-api:2.3.1")
   implementation("com.sun.mail:javax.mail:1.6.2")
   implementation("com.sun.mail:gimap:1.6.2")
 }
+
 
 vaadin {
   pnpmEnable = false

@@ -7,9 +7,25 @@ class Cliente(
   val nome: String,
   val cpf: String,
   val email: String,
+  var flagEntregaTroca: Boolean,
+  var flagUsoAsistencia: Boolean,
+  var flagHorarioDias: Boolean,
+  var flagPromocoesOferta: Boolean,
+  var flagPesquisaSatisfacao: Boolean,
              ) {
+  fun flagAceito() =
+          flagEntregaTroca || flagUsoAsistencia || flagHorarioDias || flagPromocoesOferta || flagPesquisaSatisfacao
 
-  companion object{
-   fun findClientes(filtro: String) = saci.findClientes(filtro)
+  fun token(): String {
+    return "https://www.engecopi.com.br/"
+  }
+
+  fun save() {
+    saci.saveCliente(this)
+  }
+
+  companion object {
+    fun findClientes(filtro: String, flagAceito: Boolean) =
+            saci.findClientes(filtro).filter { it.flagAceito() == flagAceito }
   }
 }

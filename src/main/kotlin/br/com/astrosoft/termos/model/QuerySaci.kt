@@ -51,7 +51,19 @@ class QuerySaci : QueryDB(driver, url, username, password) {
   fun findClientes(filtro: String): List<Cliente> {
     val sql = "/sqlSaci/clientes.sql"
     return query(sql, Cliente::class) {
-      addParameter("filtro", filtro)
+      addOptionalParameter("filtro", filtro)
+    }
+  }
+
+  fun saveCliente(cliente: Cliente) {
+    val sql = "/sqlSaci/saveCliente.sql"
+    return script(sql) {
+      addOptionalParameter("custno", cliente.codigo)
+      addOptionalParameter("flagEntregaTroca", cliente.flagEntregaTroca)
+      addOptionalParameter("flagHorarioDias", cliente.flagHorarioDias)
+      addOptionalParameter("flagPesquisaSatisfacao", cliente.flagPesquisaSatisfacao)
+      addOptionalParameter("flagPromocoesOferta", cliente.flagPromocoesOferta)
+      addOptionalParameter("flagUsoAsistencia", cliente.flagUsoAsistencia)
     }
   }
 
