@@ -19,11 +19,13 @@ class TabClienteViewModel(val viewModel: TermoViewModel) {
     cliente.flagPesquisaSatisfacao = false
     cliente.flagPromocoesOferta = false
     cliente.flagUsoAsistencia = false
+    cliente.flagCadastro = false
     cliente.save()
     updateGrid()
   }
 
   fun aceito(cliente: Cliente) {
+    cliente.flagCadastro = true
     cliente.save()
     updateGrid()
   }

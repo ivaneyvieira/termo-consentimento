@@ -9,7 +9,8 @@ SELECT C.no                                                         AS codigo,
        (C.s6 & POW(2, 1)) != 0                                      AS flagUsoAsistencia,
        (C.s6 & POW(2, 2)) != 0                                      AS flagHorarioDias,
        (C.s6 & POW(2, 3)) != 0                                      AS flagPromocoesOferta,
-       (C.s6 & POW(2, 4)) != 0                                      AS flagPesquisaSatisfacao
+       (C.s6 & POW(2, 4)) != 0                                      AS flagPesquisaSatisfacao,
+       (C.s6 & POW(2, 5)) != 0                                      AS flagCadastro
 FROM sqldados.custp          AS C
   LEFT JOIN sqldados.ctmore3 AS C3
 	      ON C.no = C3.custno

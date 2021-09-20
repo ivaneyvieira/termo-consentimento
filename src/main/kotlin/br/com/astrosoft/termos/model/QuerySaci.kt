@@ -64,6 +64,7 @@ class QuerySaci : QueryDB(driver, url, username, password) {
       addOptionalParameter("flagPesquisaSatisfacao", cliente.flagPesquisaSatisfacao)
       addOptionalParameter("flagPromocoesOferta", cliente.flagPromocoesOferta)
       addOptionalParameter("flagUsoAsistencia", cliente.flagUsoAsistencia)
+      addOptionalParameter("flagCadastro", cliente.flagCadastro)
     }
   }
 

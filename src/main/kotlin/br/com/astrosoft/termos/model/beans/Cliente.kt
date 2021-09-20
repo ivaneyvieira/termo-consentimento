@@ -12,9 +12,9 @@ class Cliente(
   var flagHorarioDias: Boolean,
   var flagPromocoesOferta: Boolean,
   var flagPesquisaSatisfacao: Boolean,
+  var flagCadastro: Boolean,
              ) {
-  fun flagAceito() =
-          flagEntregaTroca || flagUsoAsistencia || flagHorarioDias || flagPromocoesOferta || flagPesquisaSatisfacao
+  fun flagAceito() = flagCadastro
 
   fun token(): String {
     return "https://www.engecopi.com.br/"

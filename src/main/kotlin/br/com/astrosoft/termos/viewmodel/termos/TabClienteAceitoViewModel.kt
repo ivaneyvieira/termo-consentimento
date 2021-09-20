@@ -12,19 +12,6 @@ class TabClienteAceitoViewModel(val viewModel: TermoViewModel) {
     val lista = Cliente.findClientes(filtro, true)
     subView.updateClientes(lista)
   }
-
-  fun naoAceito(cliente: Cliente) {
-    cliente.flagHorarioDias = false
-    cliente.flagEntregaTroca = false
-    cliente.flagPesquisaSatisfacao = false
-    cliente.flagPromocoesOferta = false
-    cliente.flagUsoAsistencia = false
-    cliente.save()
-  }
-
-  fun aceito(cliente: Cliente) {
-    cliente.save()
-  }
 }
 
 interface ITabClienteAceitoViewModel : ITabView {
