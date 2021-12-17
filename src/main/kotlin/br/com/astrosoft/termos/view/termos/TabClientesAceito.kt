@@ -7,6 +7,7 @@ import br.com.astrosoft.termos.model.beans.Cliente
 import br.com.astrosoft.termos.model.beans.UserSaci
 import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteCodigo
 import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteCpf
+import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteDataAceite
 import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteEmail
 import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteNome
 import br.com.astrosoft.termos.viewmodel.termos.ITabClienteAceitoViewModel
@@ -44,6 +45,7 @@ class TabClientesAceito(val viewModel: TabClienteAceitoViewModel) : TabPanelGrid
       viewModel.naoAceito(cliente)
     }
 
+    clienteDataAceite()
     clienteCodigo()
     clienteNome()
     clienteCpf()
