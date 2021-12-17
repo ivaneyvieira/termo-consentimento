@@ -1,8 +1,8 @@
 package br.com.astrosoft.termos.view
 
-import br.com.astrosoft.termos.model.beans.UserSaci
 import br.com.astrosoft.framework.view.UserLayout
 import br.com.astrosoft.framework.viewmodel.IUsuarioView
+import br.com.astrosoft.termos.model.beans.UserSaci
 import br.com.astrosoft.termos.viewmodel.UsuarioViewModel
 import com.github.mvysny.karibudsl.v10.*
 import com.vaadin.flow.component.Component
@@ -57,6 +57,24 @@ class UsuarioView : UserLayout<UserSaci, UsuarioViewModel>(), IUsuarioView {
               }?.descricao ?: ""
             }
           }
+          formLayout {
+            h4("Termo de Consetimento") {
+              colspan = 2
+            }
+            checkBox("Base") {
+              isReadOnly = readOnly
+              binder.bind(this, UserSaci::clienteBase.name)
+            }
+            checkBox("Termo") {
+              isReadOnly = readOnly
+              binder.bind(this, UserSaci::clienteTermo.name)
+            }
+            checkBox("Aceito") {
+              isReadOnly = readOnly
+              binder.bind(this, UserSaci::clienteAceito.name)
+            }
+          }
+
           isAllowCustomValue = false
           binder.bind(this, UserSaci::storeno.name)
         }

@@ -1,7 +1,7 @@
 package br.com.astrosoft.termos.model.beans
 
-import br.com.astrosoft.termos.model.saci
 import br.com.astrosoft.framework.model.IUser
+import br.com.astrosoft.termos.model.saci
 import kotlin.math.pow
 import kotlin.reflect.KProperty
 
@@ -17,6 +17,9 @@ class UserSaci : IUser {
   var termos by DelegateAuthorized(1)
   override val admin
     get() = login == "ADM"
+  var clienteBase by DelegateAuthorized(1)
+  var clienteTermo by DelegateAuthorized(2)
+  var clienteAceito by DelegateAuthorized(3)
 
   companion object {
     fun findAll(): List<UserSaci> {

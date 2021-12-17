@@ -4,6 +4,7 @@ import br.com.astrosoft.framework.model.IUser
 import br.com.astrosoft.framework.view.TabPanelGrid
 import br.com.astrosoft.framework.view.addColumnButton
 import br.com.astrosoft.termos.model.beans.Cliente
+import br.com.astrosoft.termos.model.beans.UserSaci
 import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteCodigo
 import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteCpf
 import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteEmail
@@ -67,7 +68,8 @@ class TabClientesAceito(val viewModel: TabClienteAceitoViewModel) : TabPanelGrid
   }
 
   override fun isAuthorized(user: IUser): Boolean {
-    return true
+    val username = user as? UserSaci
+    return username?.clienteAceito == true
   }
 
   override val label: String
