@@ -23,9 +23,8 @@ repositories {
   mavenLocal()
   mavenCentral()
   jcenter()
-  maven {
-    url = uri("https://maven.vaadin.com/vaadin-addons")
-  }
+  maven { setUrl("https://maven.vaadin.com/vaadin-addons") }
+  maven { setUrl("https://maven.vaadin.com/vaadin-prereleases") }
 }
 
 gretty {
@@ -36,15 +35,16 @@ gretty {
 val staging: Configuration by configurations.creating
 
 tasks.withType<KotlinCompile> {
-  kotlinOptions {
-    jvmTarget = "1.8"
-  }
+  kotlinOptions.jvmTarget = "1.8"
 }
 
 group = "termo"
 version = "1.0"
 
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java {
+  sourceCompatibility = JavaVersion.VERSION_1_8
+  targetCompatibility = JavaVersion.VERSION_1_8
+}
 
 dependencies {
   // Vaadin-on-Kotlin dependency, includes Vaadin
@@ -113,15 +113,6 @@ dependencies {
 
 vaadin {
   pnpmEnable = false
-  productionMode = false
+  productionMode = true
 }
 
-jib {
-  from {
-    image = "jetty:9.4.40-jre11"
-  }
-  container {
-    appRoot = "/var/lib/jetty/webapps/ROOT"
-    user = "root" // otherwise we'll get https://github.com/appropriate/docker-jetty/issues/80
-  }
-}

@@ -5,6 +5,7 @@ import br.com.astrosoft.framework.util.format
 import br.com.astrosoft.framework.viewmodel.IView
 import br.com.astrosoft.framework.viewmodel.ViewModel
 import com.github.mvysny.karibudsl.v10.*
+import com.github.mvysny.kaributools.addColumnFor
 import com.github.mvysny.kaributools.tooltip
 import com.vaadin.flow.component.*
 import com.vaadin.flow.component.charts.model.style.SolidColor
@@ -180,7 +181,8 @@ fun <T : Any> (@VaadinDsl Grid<T>).addColumnSeq(label: String): Grid.Column<T> {
 
 fun <T : Any> (@VaadinDsl Grid<T>).addColumnString(property: KProperty1<T, String?>,
                                                    block: (@VaadinDsl Grid.Column<T>).() -> Unit = {}): Grid.Column<T> {
-  return this.addColumnFor(property) {
+  return this.
+  addColumnFor(property).apply {
     this.isAutoWidth = true
     if (this.key == null) this.key = property.name
     this.left()
@@ -295,7 +297,7 @@ fun <T : Any> (@VaadinDsl Grid<T>).addColumnDouble(property: KProperty1<T, Doubl
 
 fun <T : Any> (@VaadinDsl Grid<T>).addColumnInt(property: KProperty1<T, Int?>,
                                                 block: (@VaadinDsl Grid.Column<T>).() -> Unit = {}): Grid.Column<T> {
-  return this.addColumnFor(property) {
+  return this.addColumnFor(property).apply {
     if (this.key == null) this.key = property.name
     this.isAutoWidth = true
     this.setComparator { a, b ->
