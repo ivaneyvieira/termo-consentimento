@@ -35,8 +35,8 @@ class TabClientesTermo(val viewModel: TabClienteTermoViewModel) :
 
   override fun Grid<Cliente>.gridPanel() {
     setSelectionMode(SINGLE)
-    addColumnButton(VaadinIcon.DIPLOMA, "Termo de consentimento", "Termo") { fornecedor ->
-      DlgTermoConsetimento(viewModel).showDialogNota(fornecedor)
+    addColumnButton(VaadinIcon.DIPLOMA, "Termo de consentimento", "Termo") { cliente ->
+      DlgTermoConsetimento(viewModel).showDialogNota(cliente)
     }
 
     clienteCodigo()
