@@ -1,5 +1,6 @@
 DO @NOME := TRIM(:filtro);
 DO @CODIGO := @NOME * 1;
+DO @ACEITO := :aceito;
 
 SELECT C.no                                                         AS codigo,
        C.name                                                       AS nome,
@@ -16,5 +17,6 @@ FROM sqldados.custp          AS C
 	      ON C.no = C3.custno
 WHERE C.fjflag = 1
   AND (name LIKE CONCAT('%', @NOME, '%') OR @NOME = '' OR C.no = @CODIGO)
+  AND ((((C.s6 & POW(2, 5)) != 0) = (@ACEITO = 'S')) OR (@ACEITO = ''))
 ORDER BY C.no
-LIMIT 5000
+

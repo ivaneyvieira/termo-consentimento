@@ -30,6 +30,6 @@ class Cliente(
 
   companion object {
     fun findClientes(filtro: String, flagAceito: Boolean? = null) =
-            saci.findClientes(filtro).filter { flagAceito == null || it.flagAceito() == flagAceito }
+            saci.findClientes(filtro, flagAceito)
   }
 }
