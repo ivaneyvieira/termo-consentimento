@@ -4,7 +4,7 @@ import br.com.astrosoft.framework.util.SystemUtils
 import br.com.astrosoft.framework.view.SubWindowForm
 import br.com.astrosoft.framework.view.style
 import br.com.astrosoft.termos.model.beans.Cliente
-import br.com.astrosoft.termos.viewmodel.termos.TabClienteViewModel
+import br.com.astrosoft.termos.viewmodel.termos.TabClienteTermoViewModel
 import com.github.mvysny.karibudsl.v10.*
 import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.button.ButtonVariant
@@ -16,7 +16,7 @@ import com.vaadin.flow.data.binder.Binder
 import com.wontlost.zxing.ZXingVaadinWriter
 
 @CssImport("./styles/gridTotal.css", themeFor = "vaadin-grid")
-class DlgTermoConsetimento(val viewModel: TabClienteViewModel) {
+class DlgTermoConsetimento(val viewModel: TabClienteTermoViewModel) {
   lateinit var form: SubWindowForm
   fun showDialogNota(cliente: Cliente) {
     form = SubWindowForm("") {
@@ -83,7 +83,6 @@ class DlgTermoConsetimento(val viewModel: TabClienteViewModel) {
           this.addThemeVariants(ButtonVariant.LUMO_LARGE,
                                 ButtonVariant.LUMO_ERROR)
           onLeftClick {
-            viewModel.naoAceito(cliente)
             form.close()
           }
         }

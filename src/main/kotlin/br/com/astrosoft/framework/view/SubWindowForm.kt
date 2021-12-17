@@ -20,6 +20,7 @@ class SubWindowForm(
       content { align(stretch, top) }
       isPadding = false
       horizontalLayout {
+        this.isVisible = false
         content { align(left, baseline) }
         button("Fechar") {
           icon = VaadinIcon.CLOSE.create()

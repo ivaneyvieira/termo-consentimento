@@ -68,6 +68,13 @@ class QuerySaci : QueryDB(driver, url, username, password) {
     }
   }
 
+  fun desfazCliente(cliente: Cliente) {
+    val sql = "/sqlSaci/desfazCliente.sql"
+    return script(sql) {
+      addOptionalParameter("custno", cliente.codigo)
+    }
+  }
+
   companion object {
     private val db = DB("saci")
     internal val driver = db.driver

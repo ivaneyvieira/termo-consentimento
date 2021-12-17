@@ -24,8 +24,12 @@ class Cliente(
     saci.saveCliente(this)
   }
 
+  fun desfaz() {
+    saci.desfazCliente(this)
+  }
+
   companion object {
-    fun findClientes(filtro: String, flagAceito: Boolean) =
-            saci.findClientes(filtro).filter { it.flagAceito() == flagAceito }
+    fun findClientes(filtro: String, flagAceito: Boolean? = null) =
+            saci.findClientes(filtro).filter { flagAceito == null || it.flagAceito() == flagAceito }
   }
 }

@@ -4,17 +4,12 @@ USE sqldados;
 UPDATE sqldados.custp AS C
 SET C.s6 = POW(2, 0) * :flagEntregaTroca + POW(2, 1) * :flagUsoAsistencia +
 	   POW(2, 2) * :flagHorarioDias + POW(2, 3) * :flagPromocoesOferta +
-	   POW(2, 4) * :flagPesquisaSatisfacao + POW(2, 4) * :flagCadastro
+	   POW(2, 4) * :flagPesquisaSatisfacao + POW(2, 5) * :flagCadastro
 WHERE no = :custno;
 
-DO @RMKNO := (SELECT MAX(rmkno)
-	      FROM sqldados.ctrmk
-	      WHERE custno = :custno);
-
-DELETE
-FROM sqldados.ctrmk
-WHERE custno = :custno
-  AND ctrmktno = 12;
+DO @RMKNO := IFNULL((SELECT MAX(rmkno)
+		     FROM sqldados.ctrmk
+		     WHERE custno = :custno), 0);
 
 DROP TEMPORARY TABLE IF EXISTS T_TERMOS;
 CREATE TEMPORARY TABLE T_TERMOS (

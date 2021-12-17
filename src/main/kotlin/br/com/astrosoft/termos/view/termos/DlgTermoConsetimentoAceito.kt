@@ -5,7 +5,6 @@ import br.com.astrosoft.framework.view.SubWindowForm
 import br.com.astrosoft.framework.view.style
 import br.com.astrosoft.termos.model.beans.Cliente
 import br.com.astrosoft.termos.viewmodel.termos.TabClienteAceitoViewModel
-import br.com.astrosoft.termos.viewmodel.termos.TabClienteViewModel
 import com.github.mvysny.karibudsl.v10.*
 import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.button.ButtonVariant
@@ -70,6 +69,24 @@ class DlgTermoConsetimentoAceito(val viewModel: TabClienteAceitoViewModel) {
         }
       }
       br()
+      horizontalLayout {
+        button("Aceito") {
+          this.addThemeVariants(ButtonVariant.LUMO_LARGE,
+                                ButtonVariant.LUMO_SUCCESS)
+          onLeftClick {
+            binder.writeBean(cliente)
+            form.close()
+          }
+        }
+        button("Não Aceito") {
+          this.addThemeVariants(ButtonVariant.LUMO_LARGE,
+                                ButtonVariant.LUMO_ERROR)
+          onLeftClick {
+            viewModel.naoAceito(cliente)
+            form.close()
+          }
+        }
+      }
       binder.readBean(cliente)
     }
   }

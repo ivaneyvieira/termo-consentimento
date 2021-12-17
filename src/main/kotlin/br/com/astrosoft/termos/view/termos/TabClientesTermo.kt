@@ -8,8 +8,8 @@ import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteCodigo
 import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteCpf
 import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteEmail
 import br.com.astrosoft.termos.view.termos.columms.ClienteColumns.clienteNome
-import br.com.astrosoft.termos.viewmodel.termos.ITabClienteViewModel
-import br.com.astrosoft.termos.viewmodel.termos.TabClienteViewModel
+import br.com.astrosoft.termos.viewmodel.termos.ITabClienteTermoViewModel
+import br.com.astrosoft.termos.viewmodel.termos.TabClienteTermoViewModel
 import com.github.mvysny.karibudsl.v10.textField
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.component.grid.Grid.SelectionMode.SINGLE
@@ -18,8 +18,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout
 import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.data.value.ValueChangeMode
 
-class TabClientes(val viewModel: TabClienteViewModel) :
-        TabPanelGrid<Cliente>(Cliente::class), ITabClienteViewModel {
+class TabClientesTermo(val viewModel: TabClienteTermoViewModel) :
+        TabPanelGrid<Cliente>(Cliente::class), ITabClienteTermoViewModel {
   private lateinit var edtFiltro: TextField
   override fun HorizontalLayout.toolBarConfig() {
     edtFiltro = textField("Filtro"){
@@ -57,7 +57,7 @@ class TabClientes(val viewModel: TabClienteViewModel) :
   }
 
   override val label: String
-    get() = "Clientes"
+    get() = "Termo"
 
   override fun updateComponent() {
     viewModel.updateGrid()
