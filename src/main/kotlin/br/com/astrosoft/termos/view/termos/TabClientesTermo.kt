@@ -45,7 +45,7 @@ class TabClientesTermo(val viewModel: TabClienteTermoViewModel) :
     clienteEmail()
   }
 
-  override fun filtro(): String {
+  override fun query(): String {
     return edtFiltro.value ?: ""
   }
 

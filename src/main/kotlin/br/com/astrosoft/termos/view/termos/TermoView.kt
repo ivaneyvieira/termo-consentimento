@@ -23,6 +23,7 @@ class TermoView : ViewLayout<TermoViewModel>(), ITermoView {
   override val tabClienteTermoViewModel = TabClientesTermo(viewModel.tabClieteViewModel)
   override val tabClienteAceitoViewModel = TabClientesAceito(viewModel.tabClieteAceitoViewModel)
   override val tabClienteBaseViewModel = TabClientesBase(viewModel.tabClieteBaseViewModel)
+  override val tabClienteCanceladoViewModel = TabClientesCancelado(viewModel.tabClieteCanceladoViewModel)
 
   init {
     addTabSheat(viewModel)

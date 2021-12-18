@@ -1,7 +1,7 @@
 USE sqldados;
 
 UPDATE sqldados.custp AS C
-SET C.s6 = 0
+SET C.s6 = POW(2, 6)
 WHERE no = :custno;
 
 DO @RMKNO := IFNULL((SELECT MAX(rmkno)
@@ -22,7 +22,7 @@ SELECT no                                         AS custno,
        0                                          AS auxMy2,
        @RMKNO := @RMKNO + 1                       AS rmkno,
        1                                          AS userno,
-       12                                         AS ctrmktno,
+       13 /*Tipo de observação*/                  AS ctrmktno,
        0                                          AS bits,
        0                                          AS bits2,
        0                                          AS bits3,

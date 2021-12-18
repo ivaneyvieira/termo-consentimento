@@ -266,7 +266,7 @@ fun <T : Any> (@VaadinDsl Grid<T>).addColumnTime(property: KProperty1<T, Time?>,
 
 fun <T : Any> (@VaadinDsl Grid<T>).addColumnLocalDateTime(property: KProperty1<T, LocalDateTime?>,
                                                           block: (@VaadinDsl Grid.Column<T>).() -> Unit = {}): Grid.Column<T> {
-  return this.addColumnFor(property, renderer = LocalDateTimeRenderer(property, "dd/MM/yyyy hh:mm:ss")) {
+  return this.addColumnFor(property, renderer = LocalDateTimeRenderer(property, "dd/MM/yyyy HH:mm:ss")) {
     if (this.key == null) this.key = property.name
     this.isAutoWidth = true
     this.left()

@@ -1,7 +1,9 @@
 DO @NOME := TRIM(:filtro);
 DO @CODIGO := @NOME * 1;
-DO @ACEITO := :aceito;
+DO @TIPO := :tipo;
 
+DROP TEMPORARY TABLE IF EXISTS T;
+CREATE TEMPORARY TABLE T
 SELECT C.no                                                         AS codigo,
        C.name                                                       AS nome,
        C.cpf_cgc                                                    AS cpf,
@@ -12,16 +14,47 @@ SELECT C.no                                                         AS codigo,
        (C.s6 & POW(2, 3)) != 0                                      AS flagPromocoesOferta,
        (C.s6 & POW(2, 4)) != 0                                      AS flagPesquisaSatisfacao,
        (C.s6 & POW(2, 5)) != 0                                      AS flagCadastro,
-       CAST(MAX(IF((C.s6 & POW(2, 5)) != 0, R.date, NULL)) AS DATE) AS dataAceite
+       (C.s6 & POW(2, 6)) != 0                                      AS flagCancelado,
+       MAX(ADDDATE(R.date, INTERVAL R.time SECOND))                 AS dataHoraAceite,
+       MAX(ADDDATE(RC.date, INTERVAL RC.time SECOND))               AS dataHoraCancelamento
 FROM sqldados.custp          AS C
   LEFT JOIN sqldados.ctmore3 AS C3
 	      ON C.no = C3.custno
   LEFT JOIN sqldados.ctrmk   AS R
-	      ON R.custno = C.no AND R.ctrmktno = 12
+	      ON R.custno = C.no AND R.ctrmktno = 12 AND (C.s6 & POW(2, 5)) != 0
+  LEFT JOIN sqldados.ctrmk   AS RC
+	      ON RC.custno = C.no AND RC.ctrmktno = 13 AND (C.s6 & POW(2, 5)) = 0
 WHERE C.fjflag = 1
-  AND (name LIKE CONCAT('%', @NOME, '%') OR @NOME = '' OR C.no = @CODIGO)
-  AND ((((C.s6 & POW(2, 5)) != 0) = (@ACEITO = 'S')) OR (@ACEITO = ''))
+  AND (NAME LIKE CONCAT('%', @NOME, '%') OR @NOME = '' OR C.no = @CODIGO)
+  AND CASE @TIPO
+	WHEN 'B'
+	  THEN TRUE
+	WHEN 'T'
+	  THEN R.date IS NULL AND RC.date IS NULL
+	WHEN 'A'
+	  THEN R.date IS NOT NULL
+	WHEN 'C'
+	  THEN RC.date IS NOT NULL
+	ELSE FALSE
+      END
 GROUP BY C.no
-ORDER BY C.no
+ORDER BY C.no;
+
+SELECT codigo,
+       nome,
+       cpf,
+       email,
+       flagEntregaTroca,
+       flagUsoAsistencia,
+       flagHorarioDias,
+       flagPromocoesOferta,
+       flagPesquisaSatisfacao,
+       flagCadastro,
+       flagCancelado,
+       CAST(dataHoraAceite AS DATETIME)       AS dataHoraAceite,
+       CAST(dataHoraCancelamento AS DATETIME) AS dataHoraCancelamento
+FROM T
+
+
 
 

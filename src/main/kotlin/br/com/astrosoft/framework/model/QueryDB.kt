@@ -8,6 +8,7 @@ import org.sql2o.Sql2o
 import org.sql2o.converters.Converter
 import org.sql2o.quirks.NoQuirks
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import kotlin.reflect.KClass
 
@@ -20,6 +21,7 @@ open class QueryDB(driver: String, url: String, username: String, password: Stri
     registerDriver(driver)
     val maps = HashMap<Class<*>, Converter<*>>()
     maps[LocalDate::class.java] = LocalDateConverter()
+    maps[LocalDateTime::class.java] = LocalDateTimeConverter()
     maps[LocalTime::class.java] = LocalSqlTimeConverter()
     maps[ByteArray::class.java] = ByteArrayConverter()
     this.sql2o = Sql2o(url, username, password, NoQuirks(maps))

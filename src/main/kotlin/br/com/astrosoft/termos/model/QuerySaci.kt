@@ -4,6 +4,7 @@ import br.com.astrosoft.framework.model.Config.appName
 import br.com.astrosoft.framework.model.DB
 import br.com.astrosoft.framework.model.QueryDB
 import br.com.astrosoft.termos.model.beans.Cliente
+import br.com.astrosoft.termos.model.beans.FiltroCliente
 import br.com.astrosoft.termos.model.beans.Loja
 import br.com.astrosoft.termos.model.beans.UserSaci
 
@@ -48,15 +49,11 @@ class QuerySaci : QueryDB(driver, url, username, password) {
   }
 
   // Clientes
-  fun findClientes(filtro: String, aceito: Boolean?): List<Cliente> {
+  fun findClientes(filtro: FiltroCliente): List<Cliente> {
     val sql = "/sqlSaci/clientes.sql"
     return query(sql, Cliente::class) {
-      addOptionalParameter("filtro", filtro)
-      addOptionalParameter("aceito", when {
-        aceito == null -> ""
-        aceito         -> "S"
-        else           -> "N"
-      })
+      addOptionalParameter("filtro", filtro.query)
+      addOptionalParameter("tipo",filtro.tipo.codigo)
     }
   }
 

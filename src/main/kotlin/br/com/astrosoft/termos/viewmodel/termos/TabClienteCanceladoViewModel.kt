@@ -5,25 +5,22 @@ import br.com.astrosoft.termos.model.beans.Cliente
 import br.com.astrosoft.termos.model.beans.ETipoCliente
 import br.com.astrosoft.termos.model.beans.FiltroCliente
 
-class TabClienteAceitoViewModel(val viewModel: TermoViewModel) {
+class TabClienteCanceladoViewModel(val viewModel: TermoViewModel) {
   private val subView
-    get() = viewModel.view.tabClienteAceitoViewModel
+    get() = viewModel.view.tabClienteCanceladoViewModel
 
   fun updateGrid() {
     val query = subView.query()
-    val lista = Cliente.findClientes(FiltroCliente(query, ETipoCliente.ACEITE))
+    val lista = Cliente.findClientes(FiltroCliente(query, ETipoCliente.CANCELADO))
     subView.updateClientes(lista)
   }
 
-  fun naoAceito(cliente: Cliente) {
-    subView.showQuestao("O termo de consentimento será desfeito") {
-      cliente.desfaz()
-      updateGrid()
-    }
+  fun desfazerCancelamento(cliente: Cliente) {
+    TODO("Not yet implemented")
   }
 }
 
-interface ITabClienteAceitoViewModel : ITabView {
+interface ITabClienteCanceladoViewModel : ITabView {
   fun query(): String
   fun updateClientes(listaCliente: List<Cliente>)
   fun showQuestao(msg: String, exec: () -> Unit)

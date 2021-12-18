@@ -73,6 +73,10 @@ class UsuarioView : UserLayout<UserSaci, UsuarioViewModel>(), IUsuarioView {
               isReadOnly = readOnly
               binder.bind(this, UserSaci::clienteAceito.name)
             }
+            checkBox("Cancelado") {
+              isReadOnly = readOnly
+              binder.bind(this, UserSaci::clienteCancelado.name)
+            }
           }
 
           isAllowCustomValue = false

@@ -41,7 +41,7 @@ class TabClientesAceito(val viewModel: TabClienteAceitoViewModel) : TabPanelGrid
     addColumnButton(VaadinIcon.DIPLOMA, "Termo de consentimento", "Termo") { cliente ->
       DlgTermoConsetimentoAceito(viewModel).showDialogNota(cliente)
     }
-    addColumnButton(VaadinIcon.EXIT, "Cacnelar o Termo de consentimento", "Cancela") { cliente ->
+    addColumnButton(VaadinIcon.EXIT, "Cancelar o Termo de consentimento", "Cancela") { cliente ->
       viewModel.naoAceito(cliente)
     }
 
@@ -52,7 +52,7 @@ class TabClientesAceito(val viewModel: TabClienteAceitoViewModel) : TabPanelGrid
     clienteEmail()
   }
 
-  override fun filtro(): String {
+  override fun query(): String {
     return edtFiltro.value ?: ""
   }
 

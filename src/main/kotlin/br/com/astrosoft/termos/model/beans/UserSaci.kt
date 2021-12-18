@@ -20,6 +20,7 @@ class UserSaci : IUser {
   var clienteBase by DelegateAuthorized(1)
   var clienteTermo by DelegateAuthorized(2)
   var clienteAceito by DelegateAuthorized(3)
+  var clienteCancelado by DelegateAuthorized(4)
 
   companion object {
     fun findAll(): List<UserSaci> {

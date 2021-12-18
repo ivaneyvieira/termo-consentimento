@@ -2,14 +2,16 @@ package br.com.astrosoft.termos.viewmodel.termos
 
 import br.com.astrosoft.framework.viewmodel.ITabView
 import br.com.astrosoft.termos.model.beans.Cliente
+import br.com.astrosoft.termos.model.beans.ETipoCliente
+import br.com.astrosoft.termos.model.beans.FiltroCliente
 
 class TabClienteTermoViewModel(val viewModel: TermoViewModel) {
   private val subView
     get() = viewModel.view.tabClienteTermoViewModel
 
   fun updateGrid() {
-    val filtro = subView.filtro()
-    val lista = Cliente.findClientes(filtro, false)
+    val query = subView.query()
+    val lista = Cliente.findClientes(FiltroCliente(query, ETipoCliente.TERMO))
     subView.updateClientes(lista)
   }
 
@@ -21,6 +23,6 @@ class TabClienteTermoViewModel(val viewModel: TermoViewModel) {
 }
 
 interface ITabClienteTermoViewModel : ITabView {
-  fun filtro(): String
+  fun query(): String
   fun updateClientes(listaCliente: List<Cliente>)
 }
