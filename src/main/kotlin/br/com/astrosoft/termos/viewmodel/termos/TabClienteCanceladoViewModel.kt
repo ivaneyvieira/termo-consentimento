@@ -4,6 +4,7 @@ import br.com.astrosoft.framework.viewmodel.ITabView
 import br.com.astrosoft.termos.model.beans.Cliente
 import br.com.astrosoft.termos.model.beans.ETipoCliente
 import br.com.astrosoft.termos.model.beans.FiltroCliente
+import br.com.astrosoft.termos.model.saci
 
 class TabClienteCanceladoViewModel(val viewModel: TermoViewModel) {
   private val subView
@@ -16,7 +17,8 @@ class TabClienteCanceladoViewModel(val viewModel: TermoViewModel) {
   }
 
   fun desfazerCancelamento(cliente: Cliente) {
-    TODO("Not yet implemented")
+    saci.excluiTermo(cliente)
+    subView.updateComponent()
   }
 }
 

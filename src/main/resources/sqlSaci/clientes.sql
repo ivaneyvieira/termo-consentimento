@@ -21,20 +21,20 @@ FROM sqldados.custp          AS C
   LEFT JOIN sqldados.ctmore3 AS C3
 	      ON C.no = C3.custno
   LEFT JOIN sqldados.ctrmk   AS R
-	      ON R.custno = C.no AND R.ctrmktno = 12 AND (C.s6 & POW(2, 5)) != 0
+	      ON R.custno = C.no AND R.ctrmktno = 12
   LEFT JOIN sqldados.ctrmk   AS RC
-	      ON RC.custno = C.no AND RC.ctrmktno = 13 AND (C.s6 & POW(2, 5)) = 0
+	      ON RC.custno = C.no AND RC.ctrmktno = 13
 WHERE C.fjflag = 1
   AND (NAME LIKE CONCAT('%', @NOME, '%') OR @NOME = '' OR C.no = @CODIGO)
   AND CASE @TIPO
 	WHEN 'B'
 	  THEN TRUE
 	WHEN 'T'
-	  THEN R.date IS NULL AND RC.date IS NULL
+	  THEN (C.s6 & POW(2, 5)) = 0 AND (C.s6 & POW(2, 6)) = 0
 	WHEN 'A'
-	  THEN R.date IS NOT NULL
+	  THEN (C.s6 & POW(2, 5)) != 0
 	WHEN 'C'
-	  THEN RC.date IS NOT NULL
+	  THEN (C.s6 & POW(2, 6)) != 0
 	ELSE FALSE
       END
 GROUP BY C.no

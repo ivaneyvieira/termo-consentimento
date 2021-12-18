@@ -77,6 +77,13 @@ class QuerySaci : QueryDB(driver, url, username, password) {
     }
   }
 
+  fun excluiTermo(cliente: Cliente) {
+    val sql = "/sqlSaci/excluiCliente.sql"
+    return script(sql) {
+      addOptionalParameter("custno", cliente.codigo)
+    }
+  }
+
   companion object {
     private val db = DB("saci")
     internal val driver = db.driver
