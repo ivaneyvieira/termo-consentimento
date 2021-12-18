@@ -17,8 +17,10 @@ class TabClienteCanceladoViewModel(val viewModel: TermoViewModel) {
   }
 
   fun desfazerCancelamento(cliente: Cliente) {
-    saci.excluiTermo(cliente)
-    subView.updateComponent()
+    subView.showQuestao("O termo de consentimento será desfeito") {
+      saci.excluiTermo(cliente)
+      updateGrid()
+    }
   }
 }
 

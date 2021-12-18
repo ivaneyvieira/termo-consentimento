@@ -16,7 +16,7 @@ class TabClienteAceitoViewModel(val viewModel: TermoViewModel) {
   }
 
   fun naoAceito(cliente: Cliente) {
-    subView.showQuestao("O termo de consentimento será desfeito") {
+    subView.showQuestao("O termo de consentimento será cancelado") {
       cliente.desfaz()
       updateGrid()
     }
