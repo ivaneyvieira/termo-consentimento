@@ -13,11 +13,9 @@ import com.vaadin.flow.component.tabs.Tabs
 import com.vaadin.flow.router.BeforeEnterEvent
 import com.vaadin.flow.router.BeforeEnterObserver
 import com.vaadin.flow.router.RouterLayout
-import com.vaadin.flow.server.InitialPageSettings
-import com.vaadin.flow.server.PageConfigurator
 import kotlin.reflect.KClass
 
-abstract class MainLayout : AppLayout(), RouterLayout, BeforeEnterObserver, PageConfigurator {
+abstract class MainLayout : AppLayout(), RouterLayout, BeforeEnterObserver{
   init {
     isDrawerOpened = false
     navbar {
@@ -64,11 +62,5 @@ abstract class MainLayout : AppLayout(), RouterLayout, BeforeEnterObserver, Page
       this.icon(icon)
       routerLink(text = text, viewType = viewType)
     }
-  }
-
-  override fun configurePage(settings: InitialPageSettings?) {
-    val attributes = HashMap<String, String>()
-    attributes["rel"] = "shortcut icon"
-    settings?.addLink(Config.iconPath, attributes)
   }
 }

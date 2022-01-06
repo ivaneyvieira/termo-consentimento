@@ -10,15 +10,14 @@ import com.github.mvysny.kaributools.tooltip
 import com.vaadin.flow.component.*
 import com.vaadin.flow.component.charts.model.style.SolidColor
 import com.vaadin.flow.component.datepicker.DatePicker
-import com.vaadin.flow.component.datepicker.DatePicker.DatePickerI18n
-import com.vaadin.flow.component.grid.ColumnTextAlign.*
+import com.vaadin.flow.component.grid.ColumnTextAlign
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.component.icon.Icon
 import com.vaadin.flow.component.icon.VaadinIcon
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout
 import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.component.tabs.Tab
-import com.vaadin.flow.component.tabs.Tabs.SelectedChangeEvent
+import com.vaadin.flow.component.tabs.Tabs
 import com.vaadin.flow.data.provider.ListDataProvider
 import com.vaadin.flow.data.renderer.LocalDateRenderer
 import com.vaadin.flow.data.renderer.LocalDateTimeRenderer
@@ -129,7 +128,7 @@ abstract class ViewLayout<VM : ViewModel<*>> : VerticalLayout(), IView, BeforeLe
   }
 }
 
-fun (@VaadinDsl TabSheet).selectedChange(onEvent: (event: SelectedChangeEvent) -> Unit) {
+fun (@VaadinDsl TabSheet).selectedChange(onEvent: (event: Tabs.SelectedChangeEvent) -> Unit) {
   addSelectedChangeListener { event -> onEvent(event) }
 }
 
@@ -172,7 +171,7 @@ fun <T : Any> (@VaadinDsl Grid<T>).addColumnSeq(label: String): Grid.Column<T> {
     val lista = this.list()
     lista.indexOf(it) + 1
   }.apply {
-    this.textAlign = END
+    this.textAlign = ColumnTextAlign.END
     this.isAutoWidth = true
     this.setHeader(label)
     this.key = label
@@ -181,8 +180,7 @@ fun <T : Any> (@VaadinDsl Grid<T>).addColumnSeq(label: String): Grid.Column<T> {
 
 fun <T : Any> (@VaadinDsl Grid<T>).addColumnString(property: KProperty1<T, String?>,
                                                    block: (@VaadinDsl Grid.Column<T>).() -> Unit = {}): Grid.Column<T> {
-  return this.
-  addColumnFor(property).apply {
+  return this.addColumnFor(property).apply {
     this.isAutoWidth = true
     if (this.key == null) this.key = property.name
     this.left()
@@ -206,7 +204,7 @@ fun <T : Any> (@VaadinDsl Grid<T>).addColumnBool(property: KProperty1<T, Boolean
 
 fun <T : Any> (@VaadinDsl Grid<T>).addColumnLocalDate(property: KProperty1<T, LocalDate?>,
                                                       block: (@VaadinDsl Grid.Column<T>).() -> Unit = {}): Grid.Column<T> {
-  return this.addColumnFor(property, renderer = LocalDateRenderer(property, "dd/MM/yyyy")) {
+  return this.addColumnFor(property, renderer = LocalDateRenderer(property, "dd/MM/yyyy")).apply {
     this.isAutoWidth = true
     if (this.key == null) this.key = property.name
     this.left()
@@ -224,7 +222,7 @@ fun <T : Any> (@VaadinDsl Grid<T>).addColumnDate(property: KProperty1<T, Date?>,
   return this.addColumnFor(property, renderer = TextRenderer { bean ->
     val date = property.get(bean)
     date.format()
-  }) {
+  }).apply {
     this.isAutoWidth = true
     if (this.key == null) this.key = property.name
     this.left()
@@ -238,7 +236,7 @@ fun <T : Any> (@VaadinDsl Grid<T>).addColumnLocalTime(property: KProperty1<T, Lo
   return this.addColumnFor(property, TextRenderer { bean ->
     val hora = property.get(bean)
     hora.format()
-  }) {
+  }).apply {
     this.isAutoWidth = true
     if (this.key == null) this.key = property.name
     this.left()
@@ -251,7 +249,7 @@ fun <T : Any> (@VaadinDsl Grid<T>).addColumnTime(property: KProperty1<T, Time?>,
   return this.addColumnFor(property, TextRenderer { bean ->
     val hora = property.get(bean)
     hora.format()
-  }) {
+  }).apply {
     this.isAutoWidth = true
     if (this.key == null) this.key = property.name
     this.left()
@@ -266,7 +264,7 @@ fun <T : Any> (@VaadinDsl Grid<T>).addColumnTime(property: KProperty1<T, Time?>,
 
 fun <T : Any> (@VaadinDsl Grid<T>).addColumnLocalDateTime(property: KProperty1<T, LocalDateTime?>,
                                                           block: (@VaadinDsl Grid.Column<T>).() -> Unit = {}): Grid.Column<T> {
-  return this.addColumnFor(property, renderer = LocalDateTimeRenderer(property, "dd/MM/yyyy HH:mm:ss")) {
+  return this.addColumnFor(property, renderer = LocalDateTimeRenderer(property, "dd/MM/yyyy hh:mm:ss")).apply {
     if (this.key == null) this.key = property.name
     this.isAutoWidth = true
     this.left()
@@ -282,7 +280,7 @@ fun <T : Any> (@VaadinDsl Grid<T>).addColumnLocalDateTime(property: KProperty1<T
 
 fun <T : Any> (@VaadinDsl Grid<T>).addColumnDouble(property: KProperty1<T, Double?>,
                                                    block: (@VaadinDsl Grid.Column<T>).() -> Unit = {}): Grid.Column<T> {
-  return this.addColumnFor(property, renderer = NumberRenderer(property, DecimalFormat("#,##0.00"))) {
+  return this.addColumnFor(property, renderer = NumberRenderer(property, DecimalFormat("#,##0.00"))).apply {
     this.isAutoWidth = true
     this.setComparator { a, b ->
       val dataA = property.get(a) ?: Double.MIN_VALUE
@@ -311,15 +309,15 @@ fun <T : Any> (@VaadinDsl Grid<T>).addColumnInt(property: KProperty1<T, Int?>,
 }
 
 fun <T : Any> (@VaadinDsl Grid.Column<T>).right() {
-  this.textAlign = END
+  this.textAlign = ColumnTextAlign.END
 }
 
 fun <T : Any> (@VaadinDsl Grid.Column<T>).left() {
-  this.textAlign = START
+  this.textAlign = ColumnTextAlign.START
 }
 
 fun <T : Any> (@VaadinDsl Grid.Column<T>).center() {
-  this.textAlign = CENTER
+  this.textAlign = ColumnTextAlign.CENTER
 }
 
 fun Component.style(name: String, value: String) {
@@ -342,7 +340,8 @@ class TabClick(s: String?) : Tab(s) {
 fun DatePicker.localePtBr() {
   this.locale = Locale("pt-br")
   this.i18n =
-          DatePickerI18n().setWeek("semana")
+          DatePicker.DatePickerI18n()
+            .setWeek("semana")
             .setCalendar("calendário")
             .setClear("apagar")
             .setToday("hoje")
